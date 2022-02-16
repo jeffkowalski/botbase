@@ -37,7 +37,7 @@ class BotBase < Thor
 
     def redirect_output
       logfile_path = File.expand_path(File.join(Dir.home, '.log', "#{bot_name}.log"))
-      FileUtils.mkdir_p(File.dirbot_name(logfile_path), mode: 0o755)
+      FileUtils.mkdir_p(File.dir(logfile_path), mode: 0o755)
       FileUtils.touch logfile_path
       File.chmod 0o644, logfile_path
       $stdout.reopen logfile_path, 'a'
