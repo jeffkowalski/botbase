@@ -10,7 +10,7 @@ require "pry"
 # require "pry_doc"
 
 module Kernel
-  def with_rescue(exceptions, logger, retries: 5)
+  def with_rescue(exceptions, logger, retries: 5, nap: 0)
     try = 0
     begin
       yield try
@@ -19,6 +19,7 @@ module Kernel
       raise if try > retries
 
       logger.info "caught error #{e.class}, retrying (#{try}/#{retries})..."
+      sleep nap
       retry
     end
   end
@@ -81,13 +82,13 @@ class ScannerBotBase < BotBase
   def scan
     setup_logger
 
-    # do something
     @logger.info 'starting'
     # credentials = load_credentials
     main
     @logger.info 'done'
   rescue StandardError => e
-    @logger.error e
+    @logger.error "caught exception #{e}"
+    @logger.error e.backtrace.join("\n")
   end
 
   default_task :scan
@@ -104,7 +105,8 @@ class RecorderBotBase < BotBase
     main
     @logger.info 'done'
   rescue StandardError => e
-    @logger.error e
+    @logger.error "caught exception #{e}"
+    @logger.error e.backtrace.join("\n")
   end
 
   default_task :record_status
