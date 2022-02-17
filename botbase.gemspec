@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "influx", "~> 0.8"
+  spec.add_dependency "influxdb", "~> 0.8"
   spec.add_dependency "thor", "~> 1.2"
   spec.add_dependency "yaml", "~> 0.2"
 
