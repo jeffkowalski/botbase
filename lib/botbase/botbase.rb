@@ -66,10 +66,10 @@ class BotBase < Thor
       File.open(credentials_path, 'w') { |file| file.write(credentials.to_yaml) }
     end
 
-    no_commands do
-      def main
-        puts "please provide (override) #{self.class}::#{__method__}"
-      end
+    public
+
+    def main
+      puts "please provide (override) #{self.class}::#{__method__}"
     end
   end
 
