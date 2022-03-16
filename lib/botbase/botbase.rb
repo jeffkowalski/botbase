@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "influxdb"
-require "thor"
-require "yaml"
+require 'influxdb'
+require 'thor'
+require 'yaml'
 
-require "debug"
-require "method_source"
-require "pry"
-# require "pry_doc"
+require 'debug'
+require 'method_source'
+require 'pry'
+# require 'pry_doc'
 
 module Kernel
   def with_rescue(exceptions, logger, retries: 5, nap: 0)
