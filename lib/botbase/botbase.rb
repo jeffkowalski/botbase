@@ -29,6 +29,9 @@ end
 class BotBase < Thor
   attr_accessor :bot_name, :logger
 
+  # useful for developing new features, hiding them from normal execution
+  class_option :experimental, type: :boolean, aliases: '-X', desc: 'enable experimental features'
+
   no_commands do
     def initialize(_args = [], _local_options = {}, _config = {})
       @bot_name = self.class.to_s.downcase
