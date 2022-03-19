@@ -19,7 +19,7 @@ module Kernel
       try += 1
       raise if try > retries
 
-      logger.info "caught error #{e.class}, retrying (#{try}/#{retries})..."
+      logger.warn "caught error #{e.inspect}, retrying (#{try}/#{retries})..."
       sleep nap
       retry
     end
@@ -91,8 +91,7 @@ class ScannerBotBase < BotBase
     main
     @logger.info 'done'
   rescue StandardError => e
-    @logger.error "caught exception #{e}"
-    @logger.error e.backtrace.join("\n")
+    @logger.error (["caught exception #{e.inspect}"] + e.backtrace).join("\n")
   end
 
   default_task :scan
@@ -109,8 +108,7 @@ class RecorderBotBase < BotBase
     main
     @logger.info 'done'
   rescue StandardError => e
-    @logger.error "caught exception #{e}"
-    @logger.error e.backtrace.join("\n")
+    @logger.error (["caught exception #{e.inspect}"] + e.backtrace).join("\n")
   end
 
   default_task :record_status
