@@ -69,6 +69,16 @@ class BotBase < Thor
       File.open(credentials_path, 'w') { |file| file.write(credentials.to_yaml) }
     end
 
+    def new_influxdb_client(db = bot_name)
+      credentials_path = File.join(Dir.home, '.credentials', 'influx.yaml')
+      influx_credentials = YAML.load_file credentials_path
+      username = influx_credentials[:username]
+      password = influx_credentials[:password]
+      host = influx_credentials[:host]
+      influxdb = InfluxDB::Client.new(db, host: host, username: username, password: password) unless options[:dry_run]
+      influxdb
+    end
+
     public
 
     def main
